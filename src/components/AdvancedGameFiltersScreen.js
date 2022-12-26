@@ -27,11 +27,11 @@ const AdvancedGameFiltersScreen = () => {
     const [filters, setFilters] = useState(initialFilters);
 
     const containerRef = useRef();
-
+    
     const cors = 'https://cors-anywhere.herokuapp.com/';
-    const baseUrl = 'https://www.freetogame.com/api/games?sort-by=relevance';
+    const baseUrl = 'https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=relevance';
 
-    const { data, loading, error } = useFetch(`${cors}${baseUrl}`);
+    const { data, loading, error } = useFetch(baseUrl);
 
     const handleScroll = () => {
         if(!containerRef.current) {
@@ -49,7 +49,7 @@ const AdvancedGameFiltersScreen = () => {
             await dispatchUi({
                 type: types.uiStartLoading,
             })
-            const response = await fetch(`${url}`);
+            const response = await fetch(`${cors}${url}`);
             const data = await response.json();
             setContent(data);
             setCardsLoading(false);

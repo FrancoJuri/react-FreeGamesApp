@@ -24,7 +24,13 @@ const useFetch = (url) => {
             type: types.uiStartLoading,
         })
 
-        fetch(url)
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '133cefb64fmshcf8e86b0572c993p1482cdjsn17131c1b4299',
+                'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 if(isMounted.current){

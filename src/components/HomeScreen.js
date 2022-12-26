@@ -8,13 +8,12 @@ import Spinner from './ui/Spinner';
 
 const HomeScreen = () => {
 
-    const cors = 'https://cors-anywhere.herokuapp.com/';
-    const url = 'https://www.freetogame.com/api/games';
-    const categoryUrl = 'https://www.freetogame.com/api/games?category=mmorpg';
+    const url = 'https://free-to-play-games-database.p.rapidapi.com/api/games';
+    const categoryUrl = 'https://free-to-play-games-database.p.rapidapi.com/api/games?category=mmorpg';
 
-    const {data, loading, error} = useFetch(`${cors}${url}`);
+    const {data, loading, error} = useFetch(url);
 
-    const {data: categoryData, loading: categoryLoading, error: categoryError} = useFetch(`${cors}${categoryUrl}`);
+    const {data: categoryData, loading: categoryLoading, error: categoryError} = useFetch(categoryUrl);
 
     if(loading || categoryLoading){
         return (

@@ -35,7 +35,7 @@ const AllGamesScreen = () => {
             <h1 className='text-center mb-4 montserrat-font'>All Games</h1> 
             <BackTop />
             <RadiosContainer sort={sort} setSort={setSort} />
-            <LoadGamesCard url={`https://www.freetogame.com/api/games?sort-by=${sort}`} />
+            <LoadGamesCard url={`https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=${sort}`} />
         </div>
     )
 }

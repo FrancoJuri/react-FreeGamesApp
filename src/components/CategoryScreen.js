@@ -37,7 +37,7 @@ const CategoryScreen = () => {
         <div className='mt-5 fadeIn' ref={containerRef}>
             <h1 className='text-center mb-5 montserrat-font'>{capitalizeCategory}</h1>
             <BackTop />
-            <LoadGamesCard url={`https://www.freetogame.com/api/games?category=${category}`} category={true} />
+            <LoadGamesCard url={`https://free-to-play-games-database.p.rapidapi.com/api/games?category=${category}`} category={true} />
             <CategoriesModal />
         </div>
     ) 

@@ -27,21 +27,15 @@ const GameScreen = ({history}) => {
     const userDocRef = useRef(null);
     const containerRef = useRef();
     const currentUser = firebase.auth().currentUser;
-    let content;
 
-    const cors = 'https://cors-anywhere.herokuapp.com/';
-    const baseUrl = `https://www.freetogame.com/api/game?id=${id}`;
+    const baseUrl = `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${id}`;
 
-    const {data, loading, error} = useFetch(`${cors}${baseUrl}`);
+    const {data, loading, error} = useFetch(baseUrl);
     const [quantityLikes, setQuantityLikes] = useState(null);
     const [quantityDislikes, setQuantityDislikes] = useState(null);
     const [added, setAdded] = useState(false);
     const [favoriteLoading, setFavoriteLoading] = useState(true);
     const [favoriteError, setFavoriteError] = useState(false);
-
-    if(!loading && !screenLoading){
-        content = data;
-    }  
 
     const tryAgainFn = () => {
         getDbData();
@@ -136,10 +130,10 @@ const GameScreen = ({history}) => {
             <div className='row mt-5 game-screen-container fadeIn'>
 
                 <div className='col-12 d-flex justify-content-center'>
-                    <img src={content.thumbnail} alt={content.title} className='img-fluid img-thumbnail' />
+                    <img src={data.thumbnail} alt={data.title} className='img-fluid img-thumbnail' />
                 </div>     
 
-                <h1 className='text-center mt-4 montserrat-font'>{content.title}</h1>
+                <h1 className='text-center mt-4 montserrat-font'>{data.title}</h1>
                 <hr />
             
                 <RatingSection 
@@ -149,25 +143,26 @@ const GameScreen = ({history}) => {
                     quantityDislikes={quantityDislikes} 
                     userDocRef={userDocRef.current}
                     id={id}
-                    content={content}
+                    content={data}
                     userInfo={user.current}
                 />
 
                 <div className='col-12 mb-5'>
 
-                    <AboutGame content={content} read={read} setRead={setRead} />
-                    <GameInformation quantityLikes={quantityLikes} quantityDislikes={quantityDislikes} content={content} />
-                    <GameMinimumRequirements content={content} />
-                    <GameScreenshots content={content} />
-                    <ReviewSection userInfo={user.current} id={id} gameTitle={content.title} userDocRef={userDocRef.current} />
+                    <AboutGame content={data} read={read} setRead={setRead} />
+                    <GameInformation quantityLikes={quantityLikes} quantityDislikes={quantityDislikes} content={data} />
+                    <GameMinimumRequirements content={data} />
+                    <GameScreenshots content={data} />
+                    <ReviewSection userInfo={user.current} id={id} gameTitle={data.title} userDocRef={userDocRef.current} />
                     
                     <div ref={containerRef}>
                         <EndButtons 
                             added={added} 
                             setAdded={setAdded} 
                             userDocRef={userDocRef.current} 
-                            content={content} history={history} 
-                            gameUrl={content.game_url} 
+                            content={data} 
+                            history={history} 
+                            gameUrl={data.game_url} 
                             favoriteLoading={favoriteLoading} 
                             setFavoriteLoading={setFavoriteLoading} 
                             favoriteError={favoriteError}
@@ -177,9 +172,9 @@ const GameScreen = ({history}) => {
 
                 </div>
 
-                <PlayNowButton gameUrl={content.game_url} />
+                <PlayNowButton gameUrl={data.game_url} />
                 <AddToFavoritesButton 
-                    content={content} 
+                    content={data} 
                     userDocRef={userDocRef.current} 
                     added={added} 
                     setAdded={setAdded} 

@@ -9,14 +9,7 @@ import PropTypes from 'prop-types';
 
 const LoadGamesCard = ({url, category}) => {
     
-    let content;
-    const cors = 'https://cors-anywhere.herokuapp.com/';
-    
-    const {data, loading, error} = useFetch(`${cors}${url}`);
-
-    if(!loading){
-        content = data;
-    }
+    const {data, loading, error} = useFetch(url);
 
     if(loading){
         return (
@@ -37,13 +30,13 @@ const LoadGamesCard = ({url, category}) => {
             <div className='d-flex justify-content-center mt-5 flex-wrap gap-5 container mb-4'>
 
                 {
-                    content.map(game => (
+                    data.map(game => (
                         <GameCard key={game.id} title={game.title} image={game.thumbnail} id={game.id} genre={game.genre} desc={game.short_description} />
                     ))
                 }
 
                 {
-                    (!content.length)
+                    (!data.length)
                     &&
                     <div className='d-flex flex-column align-items-center justify-content-center'>
                         <div className='alert alert-info'>

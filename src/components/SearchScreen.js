@@ -9,10 +9,9 @@ const SearchScreen = ({history}) => {
 
     const [content, setContent] = useState([]);
 
-    const cors = 'https://cors-anywhere.herokuapp.com/';
-    const url = 'https://www.freetogame.com/api/games';
+    const url = 'https://free-to-play-games-database.p.rapidapi.com/api/games';
 
-    const {data, loading, error} = useFetch(`${cors}${url}`);
+    const {data, loading, error} = useFetch(url);
 
     const urlParams = new URLSearchParams(history.location.search);
     const q = urlParams.get('q') || '';
