@@ -28,7 +28,6 @@ const AdvancedGameFiltersScreen = () => {
 
     const containerRef = useRef();
     
-    const cors = 'https://cors-anywhere.herokuapp.com/';
     const baseUrl = 'https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=relevance';
 
     const { data, loading, error } = useFetch(baseUrl);
@@ -49,7 +48,13 @@ const AdvancedGameFiltersScreen = () => {
             await dispatchUi({
                 type: types.uiStartLoading,
             })
-            const response = await fetch(`${cors}${url}`);
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Key': '133cefb64fmshcf8e86b0572c993p1482cdjsn17131c1b4299',
+                    'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
+                }
+            });
             const data = await response.json();
             setContent(data);
             setCardsLoading(false);
@@ -75,11 +80,11 @@ const AdvancedGameFiltersScreen = () => {
             const settingStr = `${filters.setting.toString().replace(re, '.')}.`;
             const categoryStr = `${filters.category.toString().replace(re, '.')}.`;
             const graphicsAndCombatStr = `${filters.graphics}.${filters.combat}.`;
-            url = `https://www.freetogame.com/api/filter?tag=${graphicsAndCombatStr}${settingStr}${categoryStr}&platform=${filters.platform}&sort-by=${filters.sort}`;
+            url = `https://free-to-play-games-database.p.rapidapi.com/api/filter?tag=${graphicsAndCombatStr}${settingStr}${categoryStr}&platform=${filters.platform}&sort-by=${filters.sort}`;
             fetchFilters(url);
         } else if(filters.sort !== 'relevance' || filters.platform !== 'all'){
             setCardsLoading(true);
-            url = `https://www.freetogame.com/api/games?sort-by=${filters.sort}&platform=${filters.platform}`;
+            url = `https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=${filters.sort}&platform=${filters.platform}`;
             fetchFilters(url);
         } else{
             if(!loading && !error && data.status !== 0){

@@ -160,26 +160,18 @@ export default function AppRouter() {
 
       <div>
 
-        <Switch>
-    
-          {
-            (!isLoggedIn)
-            &&
-            <Switch>
-              <Route exact path='/auth/login' component={LoginScreen} setIsLoggedIn={setIsLoggedIn} />
-              <Route exact path='/auth/register' component={RegisterScreen} />
-              <Route exact path='/auth/forgot-password' component={ForgotPasswordScreen} />
-              <Redirect to='/auth/login' />
-            </Switch>
-          }
-
-          {
-            (isLoggedIn)
-            &&
-            <Route path='/' component={DashboardRoutes} />
-          }
-
-        </Switch>
+        {
+          (isLoggedIn)
+          ?
+          <Route path='/' component={DashboardRoutes} />
+          :
+          <Switch>
+            <Route exact path='/auth/login' component={LoginScreen} setIsLoggedIn={setIsLoggedIn} />
+            <Route exact path='/auth/register' component={RegisterScreen} />
+            <Route exact path='/auth/forgot-password' component={ForgotPasswordScreen} />
+            <Redirect to='/auth/login' />
+          </Switch>
+        }
 
       </div>
 
